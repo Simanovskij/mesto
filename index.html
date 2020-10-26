@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Document</title>
+</head>
+<body class="page">
+  <div class="page__container">
+    <header class="header">
+        <img class="header__logo" src="./images/logo.svg" alt="Логотип">
+    </header>
+    <main class="main">
+      <section class="profile">
+        <div class="profile__person">
+          <img src="./images/avatar.jpg" alt="Аватар" class="profile__photo">
+          <div class="profile__info">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class=" button button_type_edit" type="button"></button>
+            <p class="profile__feature">Исследователь океана</p>
+          </div>
+        </div> 
+        <button class="button button_type_add" type="button"></button>
+      </section>
+      <section class="cards-list">
+        <article class="card">
+          <img class="card__image" src="./images/goa.jpg" alt="Гоа">
+          <div class="card__description">
+            <h2 class="card__name">Гоа</h2>
+            <button class="button button_type_like" type="button"></button>
+          </div>
+        </article>
+        <article class="card">
+          <img class="card__image" src="./images/kazan.jpg" alt="Казань">
+          <div class="card__description">
+            <h2 class="card__name">Казань</h2>
+            <button class="button button_type_like" type="button"></button>
+          </div>
+        </article>
+        <article class="card">
+          <img class="card__image" src="./images/pereslavl.jpg" alt="Переславль">         
+          <div class="card__description">
+            <h2 class="card__name">Переславль-Залесский</h2>
+            <button class="button button_type_like" type="button"></button>
+          </div>
+        </article>
+        <article class="card">          
+          <img class="card__image" src="./images/dzer.jpg" alt="Дзержинск">         
+          <div class="card__description">
+            <h2 class="card__name">Дзержинск</h2>
+            <button class="button button_type_like" type="button"></button>
+          </div>
+        </article>
+        <article class="card">
+          <img class="card__image" src="./images/panaji.jpg" alt="Панаджи">
+          <div class="card__description">
+            <h2 class="card__name">Панаджи</h2>
+            <button class="button button_type_like" type="button"></button>
+          </div>
+        </article>
+        <article class="card">
+          <img class="card__image" src="./images/sergiev.jpg" alt="Сергиев Посад">
+          <div class="card__description">
+            <h2 class="card__name">Сергиев Посад</h2>
+            <button class="button button_type_like" type="button"></button>
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">© 2020 Mesto Russia</p>
+    </footer>
+    <div class="popup popup_type_edit popup_opened" >
+      <div class="popup__container">
+        <div class="button button_type_close"></div>
+        <h3 class="popup__title">Редактировать профиль</h3>
+        <form action="" class="popup__form">
+          <input class="popup__input popup__input_type_name" type="text">
+          <input class="popup__input popup__input_type_feature" type="text">
+          <button class="button button_type_save" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>
