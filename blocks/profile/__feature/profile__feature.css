@@ -5,9 +5,10 @@
   line-height: 22px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 768px) {
   .profile__feature {
     font-size: 14px;
     line-height: 17px;
+    margin-top: 6px;
   }
 }
