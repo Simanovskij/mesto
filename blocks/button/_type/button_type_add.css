@@ -3,13 +3,19 @@
   height: 50px;
   border: 2px solid #FFFFFF;
   border-radius: 2px;
-  background: url(../../../images/add-button.png) transparent center no-repeat;
+  background: url(../../../images/add.svg) transparent center no-repeat;
 }
 
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 768px) {
+  .button_type_add {
+    margin-top: 36px;
+    background-size: 16px 16px;
+  }
+}
+
+@media screen and (max-width: 320px) {
   .button_type_add {
     width: 100%;
-    margin-top: 36px;
   }
 }

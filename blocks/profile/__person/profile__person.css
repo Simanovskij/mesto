@@ -3,7 +3,7 @@
   align-items: center;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 768px) {
   .profile__person {
     flex-direction: column;
     text-align: center;

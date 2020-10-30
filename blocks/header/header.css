@@ -1,4 +1,18 @@
 .header {
   padding: 45px 0 40px;
-  border-bottom: 1px solid #545454;
+  width: 100%;
+  margin: auto;
+}
+
+@media screen and (max-width: 1024px) {
+  .header {
+    width: calc(100% - 38px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    width: calc(100% - 54px);
+    padding: 28px 0 32px;
+  }
 }
