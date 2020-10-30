@@ -26,5 +26,5 @@ function popupEditSave (evt) {
 
 editButton.addEventListener('click', popupEditOpen);
 closeButton.addEventListener('click', popupClose);
-popupEdit.addEventListener('submit', formSubmitHandler);
+popupEdit.addEventListener('submit', popupEditSave);
 
