@@ -11,10 +11,10 @@ function popupClose() {
   popup.classList.remove('popup_opened'); // закрытие popup 
 }
 
-function popupEditSwitch() {
+function popupEditOpen() {
   inputName.value = userName.textContent;
   inputFeature.value = userFeature.textContent;
-  popupEdit.classList.toggle('popup_opened'); // открытие и закрытие popupEdit
+  popupEdit.classList.add('popup_opened'); // открытие popupEdit
 }
 
 function formSubmitHandler (evt) {
@@ -24,6 +24,6 @@ function formSubmitHandler (evt) {
   popupClose(); // сохранение введённых полей и закрытие popupEdit (имя функции сохранено в угоду брифу)
 }
 
-editButton.addEventListener('click', popupEditSwitch);
+editButton.addEventListener('click', popupEditOpen);
 closeButton.addEventListener('click', popupClose);
 popupEdit.addEventListener('submit', formSubmitHandler);
