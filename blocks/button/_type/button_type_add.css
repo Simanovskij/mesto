@@ -4,6 +4,7 @@
   border: 2px solid #FFFFFF;
   border-radius: 2px;
   background: url(../../../images/add.svg) transparent center no-repeat;
+  flex-shrink: 0;
 }
 
 
