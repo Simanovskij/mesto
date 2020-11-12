@@ -23,6 +23,7 @@
 @import url('../blocks/button/_type/button_type_like.css');
 @import url('../blocks/button/_type/button_type_close.css');
 @import url('../blocks/button/_type/button_type_save.css');
+@import url('../blocks/button/_type/button_type_delete.css');
 
 @import url('../blocks/cards-list/cards-list.css');
 @import url('../blocks/card/card.css');
