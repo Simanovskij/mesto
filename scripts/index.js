@@ -1,7 +1,4 @@
-const popup = document.querySelector('.popup');
 const popupEdit = document.querySelector('.popup_type_edit');
-const editButton = document.querySelector('.button_type_edit');
-const closeButton = document.querySelector('.button_type_close');
 const userName = document.querySelector('.profile__name');
 const userFeature = document.querySelector('.profile__feature');
 const inputName = popupEdit.querySelector('.popup__input_type_name');
@@ -50,19 +47,18 @@ initialCards.forEach((place) => {
 })
 
 // закрытие popup 
-function popupClose() { 
+const popupClose = () => { 
+  const popup = document.querySelector('.popup');
   popup.classList.remove('popup_opened'); 
 }
 
-// открытие popupEdit
-function popupEditOpen() {
-  inputName.value = userName.textContent;
-  inputFeature.value = userFeature.textContent;
-  popupEdit.classList.add('popup_opened'); 
+// открытие popup
+const popupOpen = (popup) => {
+  popup.classList.add('popup_opened'); 
 }
 
 // сохранение введённых полей и закрытие popupEdit
-function popupEditSave (evt) {
+const popupEditSave = (evt) => {
   evt.preventDefault();
   userName.textContent = inputName.value;
   userFeature.textContent = inputFeature.value;
@@ -71,12 +67,20 @@ function popupEditSave (evt) {
 
 popupEdit.addEventListener('submit', popupEditSave);
 
+
+// слушатель кнопок
 document.addEventListener('click', evt => {
   const target = evt.target;
   if (target.classList.contains('button_type_edit')) {
-    popupEditOpen();
-  } else if (target.classList.contains('button_type_close')) {
-    popupClose();
+    inputName.value = userName.textContent;
+    inputFeature.value = userFeature.textContent;   
+    popupOpen(popupEdit);                                       // открытие popupEdit
+  } 
+  else if (target.classList.contains('button_type_close')) { 
+    popupClose();                                               // закрытие popup
   }
+  else if (target.classList.contains('button_type_like')) {
+    evt.target.style.background ='url(./images/like_black.svg)'; // окрашивание лайков
+  };
 })
 
