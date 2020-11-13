@@ -74,13 +74,16 @@ document.addEventListener('click', evt => {
   if (target.classList.contains('button_type_edit')) {
     inputName.value = userName.textContent;
     inputFeature.value = userFeature.textContent;   
-    popupOpen(popupEdit);                                       // открытие popupEdit
+    popupOpen(popupEdit);                                         // открытие popupEdit
   } 
   else if (target.classList.contains('button_type_close')) { 
-    popupClose();                                               // закрытие popup
+    popupClose();                                                 // закрытие popup
   }
   else if (target.classList.contains('button_type_like')) {
-    evt.target.style.background ='url(./images/like_black.svg)'; // окрашивание лайков
-  };
+    evt.target.style.background ='url(./images/like_black.svg)';  // окрашивание лайков
+  }
+  else if (target.classList.contains('button_type_delete')) {
+    evt.target.closest('.card').remove();                         // удаление карточек
+  }
 })
 
