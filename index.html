@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
   <title>Места России и не только</title>
 </head>
+
 <body class="page">
   <div class="page__container">
     <header class="header">
-        <img class="header__logo" src="./images/logo.svg" alt="Логотип">
+      <img class="header__logo" src="./images/logo.svg" alt="Логотип">
     </header>
     <main class="main">
       <section class="profile">
@@ -24,48 +26,6 @@
         <button class="button button_type_add" aria-label="Добавить фото" type="button"></button>
       </section>
       <section class="cards-list">
-        <article class="card">
-          <img class="card__image" src="./images/goa.jpg" alt="Гоа">
-          <div class="card__description">
-            <h2 class="card__name">Гоа</h2>
-            <button class="button button_type_like" aria-label="Лайк" type="button"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/kazan.jpg" alt="Казань">
-          <div class="card__description">
-            <h2 class="card__name">Казань</h2>
-            <button class="button button_type_like" aria-label="Лайк" type="button"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/pereslavl.jpg" alt="Переславль">         
-          <div class="card__description">
-            <h2 class="card__name">Карачаево-Черкесия</h2>
-            <button class="button button_type_like" aria-label="Лайк" type="button"></button>
-          </div>
-        </article>
-        <article class="card">          
-          <img class="card__image" src="./images/dzer.jpg" alt="Дзержинск">         
-          <div class="card__description">
-            <h2 class="card__name">Дзержинск</h2>
-            <button class="button button_type_like" aria-label="Лайк" type="button"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/panaji.jpg" alt="Панаджи">
-          <div class="card__description">
-            <h2 class="card__name">Панаджи</h2>
-            <button class="button button_type_like" aria-label="Лайк" type="button"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/sergiev.jpg" alt="Сергиев Посад">
-          <div class="card__description">
-            <h2 class="card__name">Сергиев Посад</h2>
-            <button class="button button_type_like" aria-label="Лайк" type="button"></button>
-          </div>
-        </article>
       </section>
     </main>
     <footer class="footer">
@@ -73,16 +33,47 @@
     </footer>
     <div class="popup popup_type_edit">
       <div class="popup__container">
-        <button class="button button_type_close" aria-label="Закрыть"></button>
+        <button class="button button_type_close button_type_close-edit" aria-label="Закрыть"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
         <form name="edit" action="#" class="popup__form">
           <input name="name" class="popup__input popup__input_type_name" type="text">
           <input name="feature" class="popup__input popup__input_type_feature" type="text">
-          <button class="button button_type_save" type="submit">Сохранить</button>
+          <button class="button button_type_submit" type="submit">Сохранить</button>
         </form>
       </div>
     </div>
+    <div class="popup popup_type_add">
+      <div class="popup__container">
+        <button class="button button_type_close button_type_close-add" aria-label="Закрыть"></button>
+        <h3 class="popup__title">Новое место</h3>
+        <form name="add-card" action="#" class="popup__form">
+          <input name="-place-name" class="popup__input popup__input_type_place-name" placeholder="Название" type="text">
+          <input name="place-link" class="popup__input popup__input_type_link" placeholder="Ссылка на картинку" type="text">
+          <button class="button button_type_submit" type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_type_image">
+      <div class="popup__image-wrapper">
+        <button class="button button_type_close button_type_close-image" aria-label="Закрыть"></button>
+        <figure class="popup__figure">
+          <img class="popup__fig-image">
+          <figcaption class="popup__fig-caption"></figcaption>
+        </figure>
+      </div>
+    </div>
+    <template class="card_template">
+      <article class="card">
+        <img class="card__image">
+       <button class="button button_type_delete" aria-label="Удалить" type="button"></button>       
+        <div class="card__description">
+         <h2 class="card__name"></h2>
+         <button class="button button_type_like" aria-label="Лайк" type="button"></button>
+       </div>
+      </article>
+    </template>
   </div>
   <script src="./scripts/index.js"></script>
 </body>
+
 </html>
