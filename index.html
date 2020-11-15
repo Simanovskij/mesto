@@ -36,8 +36,8 @@
         <button class="button button_type_close button_type_close-edit" aria-label="Закрыть"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
         <form name="edit" action="#" class="popup__form">
-          <input name="name" class="popup__input popup__input_type_name" type="text">
-          <input name="feature" class="popup__input popup__input_type_feature" type="text">
+          <input name="name" required class="popup__input popup__input_type_name" type="text">
+          <input name="feature" required class="popup__input popup__input_type_feature" type="text">
           <button class="button button_type_submit" type="submit">Сохранить</button>
         </form>
       </div>
@@ -47,8 +47,8 @@
         <button class="button button_type_close button_type_close-add" aria-label="Закрыть"></button>
         <h3 class="popup__title">Новое место</h3>
         <form name="add-card" action="#" class="popup__form">
-          <input name="-place-name" class="popup__input popup__input_type_place-name" placeholder="Название" type="text">
-          <input name="place-link" class="popup__input popup__input_type_link" placeholder="Ссылка на картинку" type="text">
+          <input name="-place-name" required class="popup__input popup__input_type_place-name" placeholder="Название" type="text">
+          <input name="place-link" required class="popup__input popup__input_type_link" placeholder="Ссылка на картинку" type="url">
           <button class="button button_type_submit" type="submit">Создать</button>
         </form>
       </div>

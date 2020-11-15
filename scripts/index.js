@@ -1,12 +1,18 @@
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupImage = document.querySelector('.popup_type_image');
+const prewiewClose = document.querySelector('.button_type_close-image');
 const popupAdd = document.querySelector('.popup_type_add');
+const editButton = document.querySelector('.button_type_edit');
+const closeEditButton = document.querySelector('.button_type_close-edit');
+const addButton = document.querySelector('.button_type_add');
+const closeAddButton = document.querySelector('.button_type_close-add');
 const userName = document.querySelector('.profile__name');
 const userFeature = document.querySelector('.profile__feature');
 const inputName = popupEdit.querySelector('.popup__input_type_name');
 const inputFeature = popupEdit.querySelector('.popup__input_type_feature');
 const newCardName = popupAdd.querySelector('.popup__input_type_place-name');
 const newCardLink = popupAdd.querySelector('.popup__input_type_link');
+const cardList = document.querySelector('.cards-list');
 
 const initialCards = [{
         name: 'Гоа',
@@ -34,36 +40,99 @@ const initialCards = [{
     }
 ];
 
-// добавление карточек
-const addCards = (card) => {
-    const cardElement = document.querySelector('.card_template').content.cloneNode(true);
-    const cardsList = document.querySelector('.cards-list');
-    cardElement.querySelector('.card__image').src = card.link;
-    cardElement.querySelector('.card__image').alt = card.name;
-    cardElement.querySelector('.card__name').textContent = card.name
+const toggleLikeButton = (button) => {
+    button.classList.toggle('button_type_like-black');
+}
 
-    cardsList.prepend(cardElement);
+const removeCard = (button) => {
+    button.closest('.card').remove();
+}
+
+prewiewClose.addEventListener('click', (evt) => {
+    popupClose(popupImage);
+})
+
+// создание карточки
+const createCard = (name, link) => {
+    const cardElement = document.querySelector('.card_template').content.cloneNode(true);
+    const cardImage = cardElement.querySelector('.card__image');
+    const cardName = cardElement.querySelector('.card__name');
+    cardImage.src = link;
+    cardImage.alt = name;
+    cardName.textContent = name;
+
+    const deleteButton = cardElement.querySelector('.button_type_delete');
+    deleteButton.addEventListener('click', (evt) => {
+        removeCard(evt.target);
+    })
+
+    const likeButton = cardElement.querySelector('.button_type_like');
+    likeButton.addEventListener('click', (evt) => {
+        toggleLikeButton(evt.target);
+    })
+
+    cardImage.addEventListener('click', () => {
+        popupOpen(popupImage);
+        const popupImageFig = popupImage.querySelector('.popup__fig-image');
+        const popupImageCaption = popupImage.querySelector('.popup__fig-caption');
+        popupImageFig.src = link;
+        popupImageFig.alt = name;
+        popupImageCaption.textContent = name;
+    })
+
+    return cardElement;
+}
+// добавление карточек
+const addCard = (container, cardElement) => {
+    container.prepend(cardElement);
 }
 
 // рендер начальных карточек
-initialCards.forEach((card) => {
-    addCards(card);
+initialCards.forEach((item) => {
+    addCard(cardList, createCard(item.name, item.link))
 })
 
-// переключатель popup`ов
-const popupToggle = (popup) => {
-    popup.classList.toggle('popup_opened');
+// открытие popup
+const popupOpen = (popup) => {
+    popup.classList.add('popup_opened');
 }
 
-// сохранение введённых полей и закрытие popupEdit
+// закрытие popup
+const popupClose = (popup) => {
+    popup.classList.remove('popup_opened');
+}
+
+// открытие popupEdit
+editButton.addEventListener('click', () => {
+    inputName.value = userName.textContent;
+    inputFeature.value = userFeature.textContent;
+    popupOpen(popupEdit);
+});
+
+// закрытие popupEdit
+closeEditButton.addEventListener ('click', () => {
+    popupClose(popupEdit);
+})
+
+// редактирование popupEdit
 const popupEditSave = (evt) => {
     evt.preventDefault();
     userName.textContent = inputName.value;
     userFeature.textContent = inputFeature.value;
-    popupToggle(popupEdit);
+    popupClose(popupEdit);
 }
 
 popupEdit.addEventListener('submit', popupEditSave);
+
+// открытие popupAdd 
+addButton.addEventListener('click', () => {
+    popupOpen(popupAdd)
+})
+
+// закрытие popupAdd 
+closeAddButton.addEventListener('click', () => {
+    popupClose(popupAdd)
+})
 
 // добавление новой карточки из формы
 const addNewCard = (evt) => {
@@ -73,41 +142,14 @@ const addNewCard = (evt) => {
         link: newCardLink.value,
     };
 
-    addCards(newCard);
-    popupToggle(popupAdd);
+    addCard(cardList, createCard(newCard.name, newCard.link));
+    popupClose(popupAdd); 
 
     newCardName.value = '';
     newCardLink.value = '';
+
+    // reset() использовать не получается. консоль утверждает что это не функция и применение к форме целиком или к инпутам приводит к ошибке.
+    // при попытке вывести метод reset() в console.log утверждается что функция не объявлена 
 }
 
 popupAdd.addEventListener('submit', addNewCard);
-
-
-// слушатель кнопок
-document.addEventListener('click', evt => {
-    const target = evt.target;
-    if (target.classList.contains('button_type_edit')) {
-        inputName.value = userName.textContent;
-        inputFeature.value = userFeature.textContent;
-        popupToggle(popupEdit);                                                 // открытие popupEdit
-    } else if (target.classList.contains('button_type_like')) {
-        evt.target.style.background = 'url(./images/like_black.svg)';           // окрашивание лайков
-    } else if (target.classList.contains('button_type_delete')) {
-        evt.target.closest('.card').remove();                                   // удаление карточек
-    } else if (target.classList.contains('button_type_close-edit')) {
-        popupToggle(popupEdit);                                                 // закрытие popupEdit
-    } else if (target.classList.contains('button_type_close-image')) {
-        popupToggle(popupImage);                                                // закрытие popupImage
-    } else if (target.classList.contains('button_type_add')) {
-        popupToggle(popupAdd);                                                  // открытие popupAdd
-    } else if (target.classList.contains('button_type_close-add')) {
-        popupToggle(popupAdd);                                                  // закрытие popupAdd
-    } else if (target.classList.contains('card__image')) {
-        popupToggle(popupImage);
-        const card = evt.target.closest('.card');
-        const cardImage = card.querySelector('.card__image').src;
-        const cardName = card.querySelector('.card__name').textContent;
-        popupImage.querySelector('.popup__fig-image').src = cardImage;
-        popupImage.querySelector('.popup__fig-caption').textContent = cardName; // разворачивание карточки           
-    }
-})
