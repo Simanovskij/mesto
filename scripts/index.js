@@ -35,7 +35,7 @@ const initialCards = [
   }
 ];
 
-// рендер начальных карточек
+// добавление карточек
 const addCards = (card) => {
   const cardElement = document.querySelector('.card_template').content.cloneNode(true);
   const cardsList = document.querySelector('.cards-list');
@@ -46,10 +46,12 @@ const addCards = (card) => {
   cardsList.prepend(cardElement);
 }
 
+// рендер начальных карточек
 initialCards.forEach((card) => {
   addCards(card);
 })
 
+// переключатель popup`ов
 const popupToggle = (popup) => { 
   popup.classList.toggle('popup_opened'); 
  }
@@ -64,7 +66,7 @@ const popupEditSave = (evt) => {
 
 popupEdit.addEventListener('submit', popupEditSave);
 
-// добавление новой карточки
+// добавление новой карточки из формы
 const addNewCard = (evt) => {
   evt.preventDefault();
   const newCard = {
@@ -74,6 +76,9 @@ const addNewCard = (evt) => {
 
   addCards(newCard);
   popupToggle(popupAdd);
+
+  newCardName.value = '';  
+  newCardLink.value = '';
 }
 
 popupAdd.addEventListener('submit', addNewCard);
