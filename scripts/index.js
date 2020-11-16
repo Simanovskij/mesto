@@ -52,6 +52,14 @@ prewiewClose.addEventListener('click', (evt) => {
     popupClose(popupImage);
 })
 
+ const prewiewOpen = (name, link) => {
+    const popupImageFig = popupImage.querySelector('.popup__fig-image');
+    const popupImageCaption = popupImage.querySelector('.popup__fig-caption');
+    popupImageFig.src = link;
+    popupImageFig.alt = name;
+    popupImageCaption.textContent = name;
+ }
+
 // создание карточки
 const createCard = (name, link) => {
     const cardElement = document.querySelector('.card_template').content.cloneNode(true);
@@ -73,11 +81,7 @@ const createCard = (name, link) => {
 
     cardImage.addEventListener('click', () => {
         popupOpen(popupImage);
-        const popupImageFig = popupImage.querySelector('.popup__fig-image');
-        const popupImageCaption = popupImage.querySelector('.popup__fig-caption');
-        popupImageFig.src = link;
-        popupImageFig.alt = name;
-        popupImageCaption.textContent = name;
+        prewiewOpen(name, link);  
     })
 
     return cardElement;
