@@ -149,11 +149,7 @@ const addNewCard = (evt) => {
     addCard(cardList, createCard(newCard.name, newCard.link));
     popupClose(popupAdd); 
 
-    newCardName.value = '';
-    newCardLink.value = '';
-
-    // reset() использовать не получается. консоль утверждает что это не функция и применение к форме целиком или к инпутам приводит к ошибке.
-    // при попытке вывести метод reset() в console.log утверждается что функция не объявлена 
+    evt.target.reset();
 }
 
 popupAdd.addEventListener('submit', addNewCard);
