@@ -35,10 +35,16 @@
       <div class="popup__container">
         <button class="button button_type_close button_type_close-edit" aria-label="Закрыть"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
-        <form name="edit" action="#" class="popup__form">
-          <input name="name" required class="popup__input popup__input_type_name" type="text">
-          <input name="feature" required class="popup__input popup__input_type_feature" type="text">
-          <button class="button button_type_submit" type="submit">Сохранить</button>
+        <form name="edit" action="#" class="popup__form" novalidate>
+          <label class="popup__label">
+            <input id="name" name="name" required class="popup__input popup__input_type_name" type="text" minlength="2" maxlength="40">
+            <span class="popup__error" id="name-error"></span>
+          </label>
+          <label class="popup__label">
+            <input id="feature" name="feature" required class="popup__input popup__input_type_feature" type="text" minlength="2" maxlength="200">
+            <span class="popup__error" id="feature-error"></span>
+          </label>
+            <button class="button button_type_submit" type="submit">Сохранить</button>
         </form>
       </div>
     </div>
@@ -46,9 +52,16 @@
       <div class="popup__container">
         <button class="button button_type_close button_type_close-add" aria-label="Закрыть"></button>
         <h3 class="popup__title">Новое место</h3>
-        <form name="add-card" action="#" class="popup__form">
-          <input name="-place-name" required class="popup__input popup__input_type_place-name" placeholder="Название" type="text">
-          <input name="place-link" required class="popup__input popup__input_type_link" placeholder="Ссылка на картинку" type="url">
+        <form name="add-card" action="#" class="popup__form" novalidate>
+          <label class="popup__label">
+            <input id="place-name" name="place-name" required class="popup__input popup__input_type_place-name" placeholder="Название" type="text"
+            minlength="2" maxlength="30">
+            <span class="popup__error" id="place-name-error"></span>
+          </label>
+          <label class="popup__label">
+            <input id="place-link" name="place-link" required class="popup__input popup__input_type_link" placeholder="Ссылка на картинку" type="url">
+            <span class="popup__error" id="place-link-error"></span>
+          </label>
           <button class="button button_type_submit" type="submit">Создать</button>
         </form>
       </div>
@@ -65,15 +78,16 @@
     <template class="card_template">
       <article class="card">
         <img class="card__image">
-       <button class="button button_type_delete" aria-label="Удалить" type="button"></button>       
+        <button class="button button_type_delete" aria-label="Удалить" type="button"></button>       
         <div class="card__description">
-         <h2 class="card__name"></h2>
-         <button class="button button_type_like" aria-label="Лайк" type="button"></button>
-       </div>
+          <h2 class="card__name"></h2>
+          <button class="button button_type_like" aria-label="Лайк" type="button"></button>
+        </div>
       </article>
     </template>
   </div>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 
 </html>

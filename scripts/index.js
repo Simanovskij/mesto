@@ -15,146 +15,164 @@ const newCardLink = popupAdd.querySelector('.popup__input_type_link');
 const cardList = document.querySelector('.cards-list');
 
 const initialCards = [{
-        name: 'Гоа',
-        link: './images/goa.jpg'
-    },
-    {
-        name: 'Казань',
-        link: './images/kazan.jpg'
-    },
-    {
-        name: 'Переславль',
-        link: './images/pereslavl.jpg'
-    },
-    {
-        name: 'Дзержинск',
-        link: './images/dzer.jpg'
-    },
-    {
-        name: 'Панаджи',
-        link: './images/panaji.jpg'
-    },
-    {
-        name: 'Сергиев Посад',
-        link: './images/sergiev.jpg'
-    }
+    name: 'Гоа',
+    link: './images/goa.jpg'
+  },
+  {
+    name: 'Казань',
+    link: './images/kazan.jpg'
+  },
+  {
+    name: 'Переславль',
+    link: './images/pereslavl.jpg'
+  },
+  {
+    name: 'Дзержинск',
+    link: './images/dzer.jpg'
+  },
+  {
+    name: 'Панаджи',
+    link: './images/panaji.jpg'
+  },
+  {
+    name: 'Сергиев Посад',
+    link: './images/sergiev.jpg'
+  }
 ];
 
 // открытие popup
 const popupOpen = (popup) => {
-    popup.classList.add('popup_opened');
+  popup.classList.add('popup_opened');
 }
 
 // закрытие popup
 const popupClose = (popup) => {
-    popup.classList.remove('popup_opened');
+  popup.classList.remove('popup_opened');
 }
 
 // редактирование popupEdit
 const popupEditSave = (evt) => {
-    evt.preventDefault();
-    userName.textContent = inputName.value;
-    userFeature.textContent = inputFeature.value;
-    popupClose(popupEdit);
+  evt.preventDefault();
+  userName.textContent = inputName.value;
+  userFeature.textContent = inputFeature.value;
+  popupClose(popupEdit);
 }
 
 // создание карточки
 const createCard = (name, link) => {
-    const cardElement = document.querySelector('.card_template').content.cloneNode(true);
-    const cardImage = cardElement.querySelector('.card__image');
-    const cardName = cardElement.querySelector('.card__name');
-    cardImage.src = link;
-    cardImage.alt = name;
-    cardName.textContent = name;
+  const cardElement = document.querySelector('.card_template').content.cloneNode(true);
+  const cardImage = cardElement.querySelector('.card__image');
+  const cardName = cardElement.querySelector('.card__name');
+  cardImage.src = link;
+  cardImage.alt = name;
+  cardName.textContent = name;
 
-    const deleteButton = cardElement.querySelector('.button_type_delete');
-    deleteButton.addEventListener('click', (evt) => {
-        removeCard(evt.target);
-    })
+  const deleteButton = cardElement.querySelector('.button_type_delete');
+  deleteButton.addEventListener('click', (evt) => {
+    removeCard(evt.target);
+  })
 
-    const likeButton = cardElement.querySelector('.button_type_like');
-    likeButton.addEventListener('click', (evt) => {
-        toggleLikeButton(evt.target);
-    })
+  const likeButton = cardElement.querySelector('.button_type_like');
+  likeButton.addEventListener('click', (evt) => {
+    toggleLikeButton(evt.target);
+  })
 
-    cardImage.addEventListener('click', () => {
-        popupOpen(popupImage);
-        prewiewOpen(name, link);  
-    })
+  cardImage.addEventListener('click', () => {
+    popupOpen(popupImage);
+    prewiewOpen(name, link);
+  })
 
-    return cardElement;
+  return cardElement;
 }
 
 // добавление карточек
 const addCard = (container, cardElement) => {
-    container.prepend(cardElement);
+  container.prepend(cardElement);
 }
 
 // добавление новой карточки из формы
 const addNewCard = (evt) => {
-    evt.preventDefault();
-    const newCard = {
-        name: newCardName.value,
-        link: newCardLink.value,
-    };
+  evt.preventDefault();
+  const newCard = {
+    name: newCardName.value,
+    link: newCardLink.value,
+  };
 
-    addCard(cardList, createCard(newCard.name, newCard.link));
-    popupClose(popupAdd); 
+  addCard(cardList, createCard(newCard.name, newCard.link));
+  popupClose(popupAdd);
 
-    evt.target.reset();
+  evt.target.reset();
 }
 
 const toggleLikeButton = (button) => {
-    button.classList.toggle('button_type_like-black');
+  button.classList.toggle('button_type_like-black');
 }
 
 const removeCard = (button) => {
-    button.closest('.card').remove();
+  button.closest('.card').remove();
 }
 
 const prewiewOpen = (name, link) => {
-    const popupImageFig = popupImage.querySelector('.popup__fig-image');
-    const popupImageCaption = popupImage.querySelector('.popup__fig-caption');
-    popupImageFig.src = link;
-    popupImageFig.alt = name;
-    popupImageCaption.textContent = name;
- }
+  const popupImageFig = popupImage.querySelector('.popup__fig-image');
+  const popupImageCaption = popupImage.querySelector('.popup__fig-caption');
+  popupImageFig.src = link;
+  popupImageFig.alt = name;
+  popupImageCaption.textContent = name;
+}
+
+const CloseEsc = (evt) => {
+  if (evt.key === 'Escape') {
+    popupClose(popupEdit);
+    popupClose(popupAdd);
+    popupClose(popupImage);
+  }
+}
+
+const closeBackground = (evt) => {
+  if (evt.target.classList.contains('popup')) {
+    popupClose(popupEdit);
+    popupClose(popupAdd);
+    popupClose(popupImage);
+  }
+}
 
 prewiewClose.addEventListener('click', (evt) => {
-    popupClose(popupImage);
+  popupClose(popupImage);
 })
 
 // открытие popupEdit
 editButton.addEventListener('click', () => {
-    inputName.value = userName.textContent;
-    inputFeature.value = userFeature.textContent;
-    popupOpen(popupEdit);
+  inputName.value = userName.textContent;
+  inputFeature.value = userFeature.textContent;
+  popupOpen(popupEdit);
+  enableValidation(validationConfig);
 });
 
 // закрытие popupEdit
-closeEditButton.addEventListener ('click', () => {
-    popupClose(popupEdit);
+closeEditButton.addEventListener('click', () => {
+  popupClose(popupEdit);
 })
 
 // открытие popupAdd 
 addButton.addEventListener('click', () => {
-    popupOpen(popupAdd)
+  popupOpen(popupAdd);
+  enableValidation(validationConfig);
 })
 
 // закрытие popupAdd 
 closeAddButton.addEventListener('click', () => {
-    popupClose(popupAdd)
+  popupClose(popupAdd)
 })
 
 popupEdit.addEventListener('submit', popupEditSave);
 
 popupAdd.addEventListener('submit', addNewCard);
 
+document.addEventListener('keydown', CloseEsc);
+
+document.addEventListener('click', closeBackground);
+
 // рендер начальных карточек
 initialCards.forEach((item) => {
-    addCard(cardList, createCard(item.name, item.link))
+  addCard(cardList, createCard(item.name, item.link))
 })
-
-
-
-
