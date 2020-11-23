@@ -40,25 +40,23 @@ const initialCards = [{
     }
 ];
 
-const toggleLikeButton = (button) => {
-    button.classList.toggle('button_type_like-black');
+// открытие popup
+const popupOpen = (popup) => {
+    popup.classList.add('popup_opened');
 }
 
-const removeCard = (button) => {
-    button.closest('.card').remove();
+// закрытие popup
+const popupClose = (popup) => {
+    popup.classList.remove('popup_opened');
 }
 
-prewiewClose.addEventListener('click', (evt) => {
-    popupClose(popupImage);
-})
-
- const prewiewOpen = (name, link) => {
-    const popupImageFig = popupImage.querySelector('.popup__fig-image');
-    const popupImageCaption = popupImage.querySelector('.popup__fig-caption');
-    popupImageFig.src = link;
-    popupImageFig.alt = name;
-    popupImageCaption.textContent = name;
- }
+// редактирование popupEdit
+const popupEditSave = (evt) => {
+    evt.preventDefault();
+    userName.textContent = inputName.value;
+    userFeature.textContent = inputFeature.value;
+    popupClose(popupEdit);
+}
 
 // создание карточки
 const createCard = (name, link) => {
@@ -86,57 +84,11 @@ const createCard = (name, link) => {
 
     return cardElement;
 }
+
 // добавление карточек
 const addCard = (container, cardElement) => {
     container.prepend(cardElement);
 }
-
-// рендер начальных карточек
-initialCards.forEach((item) => {
-    addCard(cardList, createCard(item.name, item.link))
-})
-
-// открытие popup
-const popupOpen = (popup) => {
-    popup.classList.add('popup_opened');
-}
-
-// закрытие popup
-const popupClose = (popup) => {
-    popup.classList.remove('popup_opened');
-}
-
-// открытие popupEdit
-editButton.addEventListener('click', () => {
-    inputName.value = userName.textContent;
-    inputFeature.value = userFeature.textContent;
-    popupOpen(popupEdit);
-});
-
-// закрытие popupEdit
-closeEditButton.addEventListener ('click', () => {
-    popupClose(popupEdit);
-})
-
-// редактирование popupEdit
-const popupEditSave = (evt) => {
-    evt.preventDefault();
-    userName.textContent = inputName.value;
-    userFeature.textContent = inputFeature.value;
-    popupClose(popupEdit);
-}
-
-popupEdit.addEventListener('submit', popupEditSave);
-
-// открытие popupAdd 
-addButton.addEventListener('click', () => {
-    popupOpen(popupAdd)
-})
-
-// закрытие popupAdd 
-closeAddButton.addEventListener('click', () => {
-    popupClose(popupAdd)
-})
 
 // добавление новой карточки из формы
 const addNewCard = (evt) => {
@@ -152,4 +104,57 @@ const addNewCard = (evt) => {
     evt.target.reset();
 }
 
+const toggleLikeButton = (button) => {
+    button.classList.toggle('button_type_like-black');
+}
+
+const removeCard = (button) => {
+    button.closest('.card').remove();
+}
+
+const prewiewOpen = (name, link) => {
+    const popupImageFig = popupImage.querySelector('.popup__fig-image');
+    const popupImageCaption = popupImage.querySelector('.popup__fig-caption');
+    popupImageFig.src = link;
+    popupImageFig.alt = name;
+    popupImageCaption.textContent = name;
+ }
+
+prewiewClose.addEventListener('click', (evt) => {
+    popupClose(popupImage);
+})
+
+// открытие popupEdit
+editButton.addEventListener('click', () => {
+    inputName.value = userName.textContent;
+    inputFeature.value = userFeature.textContent;
+    popupOpen(popupEdit);
+});
+
+// закрытие popupEdit
+closeEditButton.addEventListener ('click', () => {
+    popupClose(popupEdit);
+})
+
+// открытие popupAdd 
+addButton.addEventListener('click', () => {
+    popupOpen(popupAdd)
+})
+
+// закрытие popupAdd 
+closeAddButton.addEventListener('click', () => {
+    popupClose(popupAdd)
+})
+
+popupEdit.addEventListener('submit', popupEditSave);
+
 popupAdd.addEventListener('submit', addNewCard);
+
+// рендер начальных карточек
+initialCards.forEach((item) => {
+    addCard(cardList, createCard(item.name, item.link))
+})
+
+
+
+
