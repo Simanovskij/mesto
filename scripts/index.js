@@ -37,27 +37,40 @@ const initialCards = [{
   }
 ];
 
-// открытие popup и навешивание слушателей
+// открытие popup и добавление слушателей
 const popupOpen = (popup) => {
   popup.classList.add('popup_opened');
 
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      popupClose(popup);
-      console.log(evt.currentTarget);
-    }
+    closeEsc(evt, popup);
   })
 
   popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup') || evt.target.classList.contains('button_type_close')) {
-      popupClose(popup);
-    }
+    closeBackground(evt, popup);
   })
 }
 
 // закрытие popup
 const popupClose = (popup) => {
   popup.classList.remove('popup_opened');
+
+  document.removeEventListener('keydown', (evt) => {
+    closeEsc(evt, popup);
+  })
+}
+
+// закрытие по Esc
+const closeEsc = (evt, popup) => {
+  if (evt.key === 'Escape') {
+    popupClose(popup);
+  }
+}
+
+//закрытие по backgorund
+const closeBackground = (evt, popup) => {
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('button_type_close')) {
+    popupClose(popup);
+  }
 }
 
 // редактирование popupEdit
@@ -138,13 +151,11 @@ editButton.addEventListener('click', () => {
   inputName.value = userName.textContent;
   inputFeature.value = userFeature.textContent;
   popupOpen(popupEdit);
-  enableValidation(validationConfig);
 });
 
 // открытие popupAdd 
 addButton.addEventListener('click', () => {
   popupOpen(popupAdd);
-  enableValidation(validationConfig);
 })
 
 popupEdit.addEventListener('submit', popupEditSave);
