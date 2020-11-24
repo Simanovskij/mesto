@@ -1,11 +1,8 @@
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupImage = document.querySelector('.popup_type_image');
-const prewiewClose = document.querySelector('.button_type_close-image');
 const popupAdd = document.querySelector('.popup_type_add');
 const editButton = document.querySelector('.button_type_edit');
-const closeEditButton = document.querySelector('.button_type_close-edit');
 const addButton = document.querySelector('.button_type_add');
-const closeAddButton = document.querySelector('.button_type_close-add');
 const userName = document.querySelector('.profile__name');
 const userFeature = document.querySelector('.profile__feature');
 const inputName = popupEdit.querySelector('.popup__input_type_name');
@@ -40,9 +37,22 @@ const initialCards = [{
   }
 ];
 
-// открытие popup
+// открытие popup и навешивание слушателей
 const popupOpen = (popup) => {
   popup.classList.add('popup_opened');
+
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      popupClose(popup);
+      console.log(evt.currentTarget);
+    }
+  })
+
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup') || evt.target.classList.contains('button_type_close')) {
+      popupClose(popup);
+    }
+  })
 }
 
 // закрытие popup
@@ -104,14 +114,17 @@ const addNewCard = (evt) => {
   evt.target.reset();
 }
 
+// лайк карточки
 const toggleLikeButton = (button) => {
   button.classList.toggle('button_type_like-black');
 }
 
+// удаление карточки
 const removeCard = (button) => {
   button.closest('.card').remove();
 }
 
+// создание превью карточки
 const prewiewOpen = (name, link) => {
   const popupImageFig = popupImage.querySelector('.popup__fig-image');
   const popupImageCaption = popupImage.querySelector('.popup__fig-caption');
@@ -119,26 +132,6 @@ const prewiewOpen = (name, link) => {
   popupImageFig.alt = name;
   popupImageCaption.textContent = name;
 }
-
-const CloseEsc = (evt) => {
-  if (evt.key === 'Escape') {
-    popupClose(popupEdit);
-    popupClose(popupAdd);
-    popupClose(popupImage);
-  }
-}
-
-const closeBackground = (evt) => {
-  if (evt.target.classList.contains('popup')) {
-    popupClose(popupEdit);
-    popupClose(popupAdd);
-    popupClose(popupImage);
-  }
-}
-
-prewiewClose.addEventListener('click', (evt) => {
-  popupClose(popupImage);
-})
 
 // открытие popupEdit
 editButton.addEventListener('click', () => {
@@ -148,29 +141,15 @@ editButton.addEventListener('click', () => {
   enableValidation(validationConfig);
 });
 
-// закрытие popupEdit
-closeEditButton.addEventListener('click', () => {
-  popupClose(popupEdit);
-})
-
 // открытие popupAdd 
 addButton.addEventListener('click', () => {
   popupOpen(popupAdd);
   enableValidation(validationConfig);
 })
 
-// закрытие popupAdd 
-closeAddButton.addEventListener('click', () => {
-  popupClose(popupAdd)
-})
-
 popupEdit.addEventListener('submit', popupEditSave);
 
 popupAdd.addEventListener('submit', addNewCard);
-
-document.addEventListener('keydown', CloseEsc);
-
-document.addEventListener('click', closeBackground);
 
 // рендер начальных карточек
 initialCards.forEach((item) => {

@@ -1,16 +1,16 @@
-function showError(form, input, config) {
+const showError = (form, input, config) => {
   const error = form.querySelector(`#${input.id}-error`);
   error.textContent = input.validationMessage;
   input.classList.add(config.inputErrorClass);
 }
 
-function hideError(form, input, config) {
+const hideError = (form, input, config) => {
   const error = form.querySelector(`#${input.id}-error`);
   error.textContent = '';
   input.classList.remove(config.inputErrorClass);
 }
 
-function checkInputValidity(form, input, config) {
+const checkInputValidity = (form, input, config) => {
   input.setCustomValidity('');
   if (!input.validity.valid) {
     showError(form, input, config);
@@ -19,7 +19,7 @@ function checkInputValidity(form, input, config) {
   }
 }
 
-function setButtonState(button, isActive, config) {
+const setButtonState = (button, isActive, config) => {
   if (isActive) {
     button.classList.remove(config.inactiveButtonClass);
   } else {
@@ -27,7 +27,7 @@ function setButtonState(button, isActive, config) {
   }
 }
 
-function setEventListeners(form, config) {
+const setEventListeners = (form, config) => {
   const inputsList = form.querySelectorAll(config.inputSelector);
   const submitButton = form.querySelector(config.submitButtonSelector);
   inputsList.forEach((input) => {
@@ -38,7 +38,7 @@ function setEventListeners(form, config) {
   });
 }
 
-function enableValidation(config) {
+const enableValidation = (config) => {
   const forms = document.querySelectorAll(config.formSelector);
   forms.forEach((form) => {
     setEventListeners(form, config);
