@@ -21,10 +21,18 @@ const checkInputValidity = (form, input, config) => {
 
 const setButtonState = (button, isActive, config) => {
   if (isActive) {
-    button.classList.remove(config.inactiveButtonClass);
+    enableButton(button, config);
   } else {
-    button.classList.add(config.inactiveButtonClass);
+    disableButton(button, config);
   }
+}
+
+const disableButton = (button, config) => {
+  button.classList.add(config.inactiveButtonClass);
+}
+
+const enableButton = (button, config) => {
+  button.classList.remove(config.inactiveButtonClass);
 }
 
 const setEventListeners = (form, config) => {
@@ -44,6 +52,7 @@ const enableValidation = (config) => {
     setEventListeners(form, config);
     form.addEventListener('submit', (evt) => {
       evt.preventDefault();
+      disableButton(submitButton, config);
     });
     const submitButton = form.querySelector(config.submitButtonSelector);
     setButtonState(submitButton, form.checkValidity(), config)
