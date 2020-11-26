@@ -37,20 +37,7 @@ const initialCards = [{
   }
 ];
 
-// const clearError = (popup) => {
-//   const inputs = popup.querySelectorAll('.popup__input');
-//   inputs.forEach((input) => {
-//     if (input.classList.contains('popup__input_type_error')) {
-//       input.classList.remove('popup__input_type_error');
-//     }
-//   })
-
-//   const errors = popup.querySelectorAll('.popup__error');
-//   errors.forEach((error) => {
-//     error.textContent = "";
-//   })
-// }
-
+// проверка инпутов
 const checkInputs = (popup) => {
   const inputs = popup.querySelectorAll('.popup__input');
   inputs.forEach((input) => {
