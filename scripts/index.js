@@ -37,6 +37,31 @@ const initialCards = [{
   }
 ];
 
+// const clearError = (popup) => {
+//   const inputs = popup.querySelectorAll('.popup__input');
+//   inputs.forEach((input) => {
+//     if (input.classList.contains('popup__input_type_error')) {
+//       input.classList.remove('popup__input_type_error');
+//     }
+//   })
+
+//   const errors = popup.querySelectorAll('.popup__error');
+//   errors.forEach((error) => {
+//     error.textContent = "";
+//   })
+// }
+
+const checkInputs = (popup) => {
+  const inputs = popup.querySelectorAll('.popup__input');
+  inputs.forEach((input) => {
+    if (input.validity.valid) {
+      input.classList.remove('popup__input_type_error');
+      const error = popup.querySelector(`#${input.id}-error`)
+      error.textContent = "";
+    }
+  })
+}
+
 // открытие popup и добавление слушателей
 const popupOpen = (popup) => {
   popup.classList.add('popup_opened');
@@ -48,6 +73,8 @@ const popupOpen = (popup) => {
   popup.addEventListener('click', (evt) => {
     closeBackground(evt, popup);
   })
+
+  checkInputs(popup);
 }
 
 // закрытие popup
