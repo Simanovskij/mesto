@@ -37,18 +37,6 @@ const initialCards = [{
   }
 ];
 
-// проверка инпутов
-const checkInputs = (popup) => {
-  const inputs = popup.querySelectorAll('.popup__input');
-  inputs.forEach((input) => {
-    if (input.validity.valid) {
-      input.classList.remove('popup__input_type_error');
-      const error = popup.querySelector(`#${input.id}-error`)
-      error.textContent = "";
-    }
-  })
-}
-
 // открытие popup и добавление слушателей
 const popupOpen = (popup) => {
   popup.classList.add('popup_opened');
@@ -61,7 +49,11 @@ const popupOpen = (popup) => {
     closeBackground(evt, popup);
   })
 
-  checkInputs(popup);
+  const inputs = popup.querySelectorAll('.popup__input');
+  const form = popup.querySelector('.popup__form');
+  inputs.forEach((input) => {
+    hideError(form, input, validationConfig);
+  })
 }
 
 // закрытие popup
