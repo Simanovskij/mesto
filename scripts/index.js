@@ -1,4 +1,5 @@
 const popupEdit = document.querySelector('.popup_type_edit');
+const editForm = popupEdit.querySelector('.popup__form');
 const editButton = document.querySelector('.button_type_edit');
 const userName = document.querySelector('.profile__name');
 const userFeature = document.querySelector('.profile__feature');
@@ -8,13 +9,24 @@ const inputFeature = popupEdit.querySelector('.popup__input_type_feature');
 const popupImage = document.querySelector('.popup_type_image');
 
 const popupAdd = document.querySelector('.popup_type_add');
+const addForm = popupAdd.querySelector('.popup__form');
 const newCardName = popupAdd.querySelector('.popup__input_type_place-name');
 const newCardLink = popupAdd.querySelector('.popup__input_type_link');
 const addButton = document.querySelector('.button_type_add');
 
 const cardList = document.querySelector('.cards-list');
 
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.button_type_submit',
+  inactiveButtonClass: 'button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error'
+}
+
 import { Card } from './card.js';
+import { FormValidator } from './validate.js';
 
 const initialCards = [{
     name: 'Гоа',
@@ -53,12 +65,6 @@ const popupOpen = (popup) => {
   popup.addEventListener('click', (evt) => {
     closeBackground(evt, popup);
   })
-
-  const inputs = popup.querySelectorAll('.popup__input');
-  const form = popup.querySelector('.popup__form');
-  inputs.forEach((input) => {
-    hideError(form, input, validationConfig);
-  })
 }
 
 // открытие popupEdit
@@ -66,6 +72,7 @@ editButton.addEventListener('click', () => {
   inputName.value = userName.textContent;
   inputFeature.value = userFeature.textContent;
   popupOpen(popupEdit);
+  new FormValidator(validationConfig, editForm).enableValidation();
 });
 
 // редактирование popupEdit
@@ -79,6 +86,7 @@ const popupEditSave = (evt) => {
 // открытие popupAdd 
 addButton.addEventListener('click', () => {
   popupOpen(popupAdd);
+  new FormValidator(validationConfig, addForm).enableValidation();
 })
 
 // закрытие popup
