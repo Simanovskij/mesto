@@ -114,7 +114,7 @@ const closeBackground = (evt, popup) => {
 
 // создание карточки
 const createCard = (name, link) => {
-  const cardElement = new Card(name, link, '.card_template').generateCard();
+  const cardElement = new Card(name, link, '.card-template').generateCard();
   const cardImage = cardElement.querySelector('.card__image');
   cardImage.addEventListener('click', () => {
     popupOpen(popupImage);
