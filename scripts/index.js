@@ -48,7 +48,7 @@ const initialCards = [{
   }
 ];
 
-import { Card } from './Card.js';
+import { Card } from './Сard.js';
 import { FormValidator } from './Validate.js';
 
 // открытие popup и добавление слушателей
