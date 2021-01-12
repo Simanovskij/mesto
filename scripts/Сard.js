@@ -1,9 +1,9 @@
-import { popupImage, popupOpen } from './index.js';
+// import { popupImage, popupOpen } from './index.js';
 
 export class Card {
-  constructor(name, link, cardSelector) {
-    this._name = name;
-    this._link = link;
+  constructor(data, cardSelector) {
+    this._name = data.name;
+    this._link = data.link;
     this._cardSelector = cardSelector;
   }
 
@@ -20,14 +20,14 @@ export class Card {
     evt.target.closest('.card').remove();
   }
 
-  _openPrewiew = () => {
-    const popupImageFig = popupImage.querySelector('.popup__fig-image');
-    const popupImageCaption = popupImage.querySelector('.popup__fig-caption');
-    popupImageFig.src = this._link;
-    popupImageFig.alt = this._name;
-    popupImageCaption.textContent = this._name;
-    popupOpen(popupImage);
-  }
+  // _openPrewiew = () => {
+  //   const popupImageFig = popupImage.querySelector('.popup__fig-image');
+  //   const popupImageCaption = popupImage.querySelector('.popup__fig-caption');
+  //   popupImageFig.src = this._link;
+  //   popupImageFig.alt = this._name;
+  //   popupImageCaption.textContent = this._name;
+  //   popupOpen(popupImage);
+  // }
 
   _setEventListeners() {
     this._card.querySelector('.button_type_like').addEventListener('click', this._toggleLikeButton);
