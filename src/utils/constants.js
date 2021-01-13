@@ -1,10 +1,9 @@
-export const popupEdit = document.querySelector('.popup_type_edit');
+const popupEdit = document.querySelector('.popup_type_edit');
 export const editForm = popupEdit.querySelector('.popup__form');
 export const editButton = document.querySelector('.button_type_edit');
 export const inputName = popupEdit.querySelector('.popup__input_type_name');
 export const inputFeature = popupEdit.querySelector('.popup__input_type_feature');
-export const popupImage = document.querySelector('.popup_type_image');
-export const popupAdd = document.querySelector('.popup_type_add');
+const popupAdd = document.querySelector('.popup_type_add');
 export const addForm = popupAdd.querySelector('.popup__form');
 export const addButton = document.querySelector('.button_type_add');
 

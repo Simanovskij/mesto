@@ -1,11 +1,9 @@
+import "./index.css";
 import {
-  popupEdit,
   editForm,
   editButton,
   inputName,
   inputFeature,
-  popupImage,
-  popupAdd,
   addForm,
   addButton,
   validationConfig,
