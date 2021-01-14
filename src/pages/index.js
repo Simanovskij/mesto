@@ -12,7 +12,7 @@ import {
 from '../utils/constants.js';
 
 import Card from '../components/Сard.js';
-import { FormValidator } from '../components/Validate.js';
+import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
