@@ -1,79 +1,71 @@
 export class FormValidator {
-  constructor(config, checkingForm, newForm) {
+  constructor(config, checkingForm) {
     this._config = config;
     this._checkingForm = checkingForm;
-    this._newForm = newForm;
+    this._inputsList = Array.from(checkingForm.querySelectorAll(config.inputSelector));
+    this._submitButton = checkingForm.querySelector(config.submitButtonSelector);
   }
 
-  _showError(input, config) {
+  _showError = (input) => {
     const error = this._checkingForm.querySelector(`#${input.id}-error`);
     error.textContent = input.validationMessage;
-    input.classList.add(config.inputErrorClass);
+    input.classList.add(this._config.inputErrorClass);
   }
 
-  _hideError(input, config) {
+  _hideError = (input) => {
     const error = this._checkingForm.querySelector(`#${input.id}-error`);
     error.textContent = '';
-    input.classList.remove(config.inputErrorClass);
+    input.classList.remove(this._config.inputErrorClass);
   }
 
-  _checkInputValidity(input, config) {
+  _checkInputValidity = (input) => {
     input.setCustomValidity('');
     if (!input.validity.valid) {
-      this._showError(input, config);
+      this._showError(input);
     } else {
-      this._hideError(input, config);
-    }
+      this._hideError(input);
+    };
   }
 
-  _setButtonState(button, isActive, config) {
-    if (isActive) {
-      this._enableButton(button, config);
-    } else {
-      this._disableButton(button, config);
-    }
-  }
-
-  _disableButton(button, config) {
-    button.classList.add(config.inactiveButtonClass);
-  }
-
-  _enableButton = (button, config) => {
-    button.classList.remove(config.inactiveButtonClass);
-  }
-
-  _checkValidity(form, config, newForm) {
-    const inputsList = form.querySelectorAll(config.inputSelector);
-    const submitButton = form.querySelector(config.submitButtonSelector);
-    this._setButtonState(submitButton, form.checkValidity(), config);
-    inputsList.forEach((input) => {
-      if (newForm) {
-        this._hideError(input, config)
-      } else {
-        this._checkInputValidity(input, config)
-      }
+  _hasInvalidInput = () => {
+    return this._inputsList.some((input) => {
+      return !input.validity.valid;
     });
   }
 
-  _setEventListeners(form, config) {
-    const inputsList = form.querySelectorAll(config.inputSelector);
-    const submitButton = form.querySelector(config.submitButtonSelector);
-    inputsList.forEach((input) => {
+  _setButtonState = () => {
+    if (this._hasInvalidInput(this._inputsList)) {
+      this._disableButton();
+    } else {
+      this._enableButton();
+    }
+  }
+
+  _disableButton = () => {
+    this._submitButton.classList.add(this._config.inactiveButtonClass);
+  }
+
+  _enableButton = () => {
+    this._submitButton.classList.remove(this._config.inactiveButtonClass);
+  }
+
+  checkValidity = () => {
+    this._setButtonState();
+  }
+
+  _setEventListeners = () => {
+    this._checkingForm.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+    });
+    this._inputsList.forEach(input => {
       input.addEventListener('input', () => {
-        this._checkInputValidity(input, config);
-        this._setButtonState(submitButton, form.checkValidity(), config);
+        this._checkInputValidity(input);
+        this._setButtonState();
       });
     });
   }
 
-  enableValidation() {
-    if (this._newForm) {
-      this._checkValidity(this._checkingForm, this._config, this._newForm)
-    } else {
-      this._checkingForm.addEventListener("submit", (evt) => {
-        evt.preventDefault();
-      })
-    }
-    this._setEventListeners(this._checkingForm, this._config);
-  }
+  enableValidation = () => {
+    this._setEventListeners();
+  };
 }

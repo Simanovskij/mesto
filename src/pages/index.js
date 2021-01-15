@@ -20,8 +20,12 @@ import UserInfo from '../components/UserInfo.js';
 
 const imagePopup = new PopupWithImage('.popup_type_image')
 const userData = new UserInfo('.profile__name', '.profile__feature');
-const editFormValidation = new FormValidator(validationConfig, editForm, true);
-const addFormValidation = new FormValidator(validationConfig, addForm, true);
+
+const editFormValidation = new FormValidator(validationConfig, editForm);
+editFormValidation.enableValidation();
+
+const addFormValidation = new FormValidator(validationConfig, addForm);
+addFormValidation.enableValidation();
 
 function createCard(item) {
   return new Card(item, '.card-template', {
@@ -55,7 +59,7 @@ const popupAddCard = new PopupWithForm('.popup_type_add', {
 
 function openPopupAddCard() {
   popupAddCard.open();
-  addFormValidation.enableValidation();
+  addFormValidation.checkValidity();
 }
 
 addButton.addEventListener('click', openPopupAddCard);
@@ -74,9 +78,9 @@ const popupEditProfile = new PopupWithForm('.popup_type_edit', {
 
 function openPopupEditProfile() {
   const newUser = userData.getUserInfo();
-  inputName.value = newUser.Name;
-  inputFeature.value = newUser.Feature;
-  editFormValidation.enableValidation();
+  inputName.value = newUser.name;
+  inputFeature.value = newUser.feature;
+  // editFormValidation.checkValidity();
   popupEditProfile.open();
 }
 
