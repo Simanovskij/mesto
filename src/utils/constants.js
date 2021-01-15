@@ -13,7 +13,7 @@ export const validationConfig = {
   submitButtonSelector: '.button_type_submit',
   inactiveButtonClass: 'button_disabled',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error'
+  errorClass: '.popup__error'
 }
 
 import Goa from '../images/goa.jpg';
