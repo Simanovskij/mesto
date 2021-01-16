@@ -68,7 +68,6 @@ addButton.addEventListener('click', openPopupAddCard);
 
 const popupEditProfile = new PopupWithForm('.popup_type_edit', {
   handleFormSubmit: (item) => {
-    console.log(item)
     userData.setUserInfo({
       userName: item.name,
       userFeature: item.feature,
@@ -80,7 +79,7 @@ function openPopupEditProfile() {
   const newUser = userData.getUserInfo();
   inputName.value = newUser.name;
   inputFeature.value = newUser.feature;
-  // editFormValidation.checkValidity();
+  editFormValidation.checkValidity();
   popupEditProfile.open();
 }
 
