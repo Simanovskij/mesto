@@ -11,12 +11,12 @@ export default class UserInfo {
     return { name: userName, feature: userFeature }
   }
 
-  setUserInfo({ userName, userFeature }) {
-    this._userName.textContent = userName;
-    this._userFeature.textContent = userFeature;
+  setUserInfo(data) {
+    this._userName.textContent = data.name;
+    this._userFeature.textContent = data.about;
   }
 
-  setUserAvatar(userAvatar) {
-    this._userAvatar.src = userAvatar;
+  setUserAvatar(data) {
+    this._userAvatar.src = data.avatar;
   }
 }

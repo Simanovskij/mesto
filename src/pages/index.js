@@ -37,16 +37,13 @@ const api = new Api({
 
 let myId = '';
 
-Promise.all([api.getUserInfo(), api.getInitialCards()])
+api.getInitialData()
   .then((res) => {
-    console.log(res)
-    myId = res[0]._id;
-    userData.setUserInfo({
-      userName: res[0].name,
-      userSpec: res[0].about,
-    });
-    //userObject.setUserAvatar(res[0].avatar);
-    cardsArray.renderItems(res[1]);
+    const [user, cards] = res
+    myId = user._id;
+    userData.setUserInfo(user);
+    userData.setUserAvatar(user);
+    cardsArray.renderItems(cards);
   })
   .catch((err) => {
     console.log(err);
@@ -54,11 +51,11 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
 function createCard(item) {
   return new Card(item, myId, '.card-template', {
-    handleCardClick: () => {
-      const data = {};
-      data.src = item.link;
-      data.textContent = item.title;
-      imagePopup.open(data);
+    handleCardClick: (item) => {
+      imagePopup.open(item);
+    },
+    handleDelClick : (item) => {
+      console.log(item)
     }
   }).generateCard();
 }
@@ -74,7 +71,6 @@ const cardsArray = new Section({
 
 const popupAddCard = new PopupWithForm('.popup_type_add', {
   handleFormSubmit: (item) => {
-    console.log(item.name);
     api.setNewCard(item)
       .then((res) => {
         const cardElement = createCard(res);
@@ -99,10 +95,7 @@ const popupEditProfile = new PopupWithForm('.popup_type_edit', {
   handleFormSubmit: (item) => {
     api.setUserInfo(item)
       .then((res) => {
-        userData.setUserInfo({
-          userName: res.name,
-          userFeature: res.about,
-        });
+        userData.setUserInfo(res);
       })
       .catch((error) => {
         console.log(error)

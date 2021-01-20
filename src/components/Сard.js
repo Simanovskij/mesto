@@ -1,11 +1,13 @@
 export default class Card {
-  constructor(data, myId, cardSelector, { handleCardClick }) {
+  constructor(data, myId, cardSelector, { handleCardClick, handleDelClick }) {
+    this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._ownerId = data.owner._id;
     this._likeCounter = data.likes.length
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDelClick = handleDelClick;
     this._myId = myId;
   }
 
@@ -34,14 +36,12 @@ export default class Card {
     if (this._ownerId !== this._myId) {
       this._card.querySelector('.button_type_delete').classList.add('button_hidden');
     };
-    console.log(this._ownerId);
-    console.log(this._myId);
     return this._card;
   }
 
   _setEventListeners() {
     this._card.querySelector('.button_type_like').addEventListener('click', this._toggleLikeButton);
-    this._card.querySelector('.button_type_delete').addEventListener('click', this._deleteCard);
-    this._cardImage.addEventListener('click', this._handleCardClick);
+    this._card.querySelector('.button_type_delete').addEventListener('click', () => {this._handleDelClick(this._data)});
+    this._cardImage.addEventListener('click', () => {this._handleCardClick(this._data)});
   }
 }

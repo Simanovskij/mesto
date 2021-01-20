@@ -4,6 +4,10 @@ export default class Api {
     this._headers = options.headers;
   }
 
+  getInitialData() {
+   return Promise.all([this.getUserInfo(), this.getInitialCards()])
+  }
+
   getUserInfo() {
     return fetch(this._baseUrl + "users/me", {
         headers: this._headers,
