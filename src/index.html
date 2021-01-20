@@ -47,6 +47,12 @@
         </form>
       </div>
     </div>
+    <div class="popup popup_type_submit">
+      <div class="popup__container">
+        <button class="button button_type_close button_type_close-add" aria-label="Закрыть"></button>
+        <h3 class="popup__title">Редактировать профиль</h3>
+      </div>
+    </div>
     <div class="popup popup_type_add">
       <div class="popup__container">
         <button class="button button_type_close button_type_close-add" aria-label="Закрыть"></button>
@@ -80,7 +86,10 @@
         <button class="button button_type_delete" aria-label="Удалить" type="button"></button>       
         <div class="card__description">
           <h2 class="card__name"></h2>
-          <button class="button button_type_like" aria-label="Лайк" type="button"></button>
+          <div class="card__likes">  
+            <button class="button button_type_like" aria-label="Лайк" type="button"></button>
+            <span class="card__like-counter">0</span>
+        </div>
         </div>
       </article>
     </template>

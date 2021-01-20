@@ -7,7 +7,6 @@ import {
   addForm,
   addButton,
   validationConfig,
-  initialCards
 }
 from '../utils/constants.js';
 
@@ -17,9 +16,10 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 
 const imagePopup = new PopupWithImage('.popup_type_image')
-const userData = new UserInfo('.profile__name', '.profile__feature');
+const userData = new UserInfo('.profile__name', '.profile__feature', '.profile__photo');
 
 const editFormValidation = new FormValidator(validationConfig, editForm);
 editFormValidation.enableValidation();
@@ -27,8 +27,33 @@ editFormValidation.enableValidation();
 const addFormValidation = new FormValidator(validationConfig, addForm);
 addFormValidation.enableValidation();
 
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-19/',
+  headers: {
+    authorization: '671a720e-cba7-4f35-b61f-172e84bd5055',
+    'Content-Type': 'application/json'
+  }
+});
+
+let myId = '';
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then((res) => {
+    console.log(res)
+    myId = res[0]._id;
+    userData.setUserInfo({
+      userName: res[0].name,
+      userSpec: res[0].about,
+    });
+    //userObject.setUserAvatar(res[0].avatar);
+    cardsArray.renderItems(res[1]);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 function createCard(item) {
-  return new Card(item, '.card-template', {
+  return new Card(item, myId, '.card-template', {
     handleCardClick: () => {
       const data = {};
       data.src = item.link;
@@ -39,21 +64,25 @@ function createCard(item) {
 }
 
 const cardsArray = new Section({
-  items: initialCards,
   renderer: (item) => {
     const cardElement = createCard(item);
     cardsArray.addItem(cardElement);
   }
 }, '.cards-list');
 
-cardsArray.renderItems();
-
-///////////////////////////////////////////////////////
+// Добавление карточек
 
 const popupAddCard = new PopupWithForm('.popup_type_add', {
   handleFormSubmit: (item) => {
-    const cardElement = createCard(item);
-    cardsArray.addItem(cardElement);
+    console.log(item.name);
+    api.setNewCard(item)
+      .then((res) => {
+        const cardElement = createCard(res);
+        cardsArray.addItem(cardElement);
+      })
+      .catch((error) => {
+        console.log(error)
+      });
   },
 });
 
@@ -64,14 +93,20 @@ function openPopupAddCard() {
 
 addButton.addEventListener('click', openPopupAddCard);
 
-/////////////////////////////////////////////////////
+// Редактирование профиля
 
 const popupEditProfile = new PopupWithForm('.popup_type_edit', {
   handleFormSubmit: (item) => {
-    userData.setUserInfo({
-      userName: item.name,
-      userFeature: item.feature,
-    });
+    api.setUserInfo(item)
+      .then((res) => {
+        userData.setUserInfo({
+          userName: res.name,
+          userFeature: res.about,
+        });
+      })
+      .catch((error) => {
+        console.log(error)
+      });
   }
 });
 
@@ -83,4 +118,4 @@ function openPopupEditProfile() {
   popupEditProfile.open();
 }
 
-editButton.addEventListener('click', openPopupEditProfile)
+editButton.addEventListener('click', openPopupEditProfile);

@@ -15,37 +15,3 @@ export const validationConfig = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: '.popup__error'
 }
-
-import Goa from '../images/goa.jpg';
-import Kazan from '../images/kazan.jpg';
-import Pereslavl from '../images/pereslavl.jpg';
-import Dzerjinsk from '../images/dzer.jpg';
-import Panaji from '../images/panaji.jpg';
-import Posad from '../images/sergiev.jpg';
-
-
-export const initialCards = [{
-    name: 'Гоа',
-    link: Goa
-  },
-  {
-    name: 'Казань',
-    link: Kazan
-  },
-  {
-    name: 'Переславль',
-    link: Pereslavl
-  },
-  {
-    name: 'Дзержинск',
-    link: Dzerjinsk
-  },
-  {
-    name: 'Панаджи',
-    link: Panaji
-  },
-  {
-    name: 'Сергиев Посад',
-    link: Posad
-  }
-];
