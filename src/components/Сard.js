@@ -15,8 +15,9 @@ export default class Card {
     evt.target.classList.toggle('button_type_like-black');
   }
 
-  _deleteCard(evt) {
-    evt.target.closest('.card').remove();
+  _deleteCard = () => {
+    this._card.remove();
+    this._card = null;
   }
 
   generateCard() {
