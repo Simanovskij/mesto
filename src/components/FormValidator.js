@@ -50,7 +50,10 @@ export class FormValidator {
   }
 
   checkValidity = () => {
-    this._setButtonState();
+    this._disableButton();
+    this._inputsList.forEach(input => {
+      this._hideError(input);
+    });
   }
 
   _setEventListeners = () => {
