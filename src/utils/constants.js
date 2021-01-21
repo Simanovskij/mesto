@@ -6,6 +6,9 @@ export const inputFeature = popupEdit.querySelector('.popup__input_type_feature'
 const popupAdd = document.querySelector('.popup_type_add');
 export const addForm = popupAdd.querySelector('.popup__form');
 export const addButton = document.querySelector('.button_type_add');
+const popupAvatar = document.querySelector('.popup_type_edit-avatar');
+export const avatarForm = popupAvatar.querySelector('.popup__form');
+export const editAvatarButton = document.querySelector('.profile__edit-avatar');
 
 export const validationConfig = {
   formSelector: '.popup__form',

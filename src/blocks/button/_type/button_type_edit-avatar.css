@@ -1,4 +1,4 @@
-.profile__edit-avatar {
+.button_type_edit-avatar {
   padding: 0;
   border: 0;
   background: none;
@@ -9,9 +9,8 @@
   height: 100%;
   cursor: pointer;
   transition: background-color .2s linear;
-  outline: none;
 }
 
-.profile__edit-avatar:hover{
+.button_type_edit-avatar:hover{
   background: url(../../../images/editAvatar.svg) center no-repeat rgba(0, 0, 0, .8);
 }

@@ -59,7 +59,6 @@ export default class Card {
     this._cardImage.alt = this._name;
     this._card.querySelector('.card__name').textContent = this._name;
     this._likes = this._card.querySelector('.card__like-counter');
-    console.log(this._likes);
     this._likeButton = this._card.querySelector('.button_type_like');
     this._deleteButton = this._card.querySelector('.button_type_delete');
     if (!this._checkOwner()) {
