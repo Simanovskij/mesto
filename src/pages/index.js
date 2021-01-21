@@ -17,6 +17,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
+import PopupWithConfirm from "../components/PopupWithConfirm";
 
 const imagePopup = new PopupWithImage('.popup_type_image')
 const userData = new UserInfo('.profile__name', '.profile__feature', '.profile__photo');
@@ -27,6 +28,18 @@ editFormValidation.enableValidation();
 const addFormValidation = new FormValidator(validationConfig, addForm);
 addFormValidation.enableValidation();
 
+const popupDelConfirm = new PopupWithConfirm('.popup_type_submit', {
+  handleFormSubmit: (data) => {
+    api.delCard(data)
+      .then(() => {
+        tempCard.remove();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+})
+
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-19/',
   headers: {
@@ -36,6 +49,7 @@ const api = new Api({
 });
 
 let myId = '';
+let tempCard = '';
 
 api.getInitialData()
   .then((res) => {
@@ -50,19 +64,40 @@ api.getInitialData()
   });
 
 function createCard(item) {
-  return new Card(item, myId, '.card-template', {
+  const card = new Card(item, myId, '.card-template', {
     handleCardClick: (item) => {
       imagePopup.open(item);
     },
-    handleDelClick : (item) => {
-      console.log(item)
+    handleDelClick: (item) => {
+      popupDelConfirm.open(item);
+      tempCard = card;
+    },
+    setLike: (item) => {
+      api.setLike(item)
+        .then((item) => {
+          card.setLikes(item)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    delLike: (item) => {
+      api.delLike(item)
+        .then((item) => {
+          card.setLikes(item)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }).generateCard();
+  })
+  return card;
 }
 
 const cardsArray = new Section({
   renderer: (item) => {
-    const cardElement = createCard(item);
+    const card = createCard(item);
+    const cardElement = card.generateCard();
     cardsArray.addItem(cardElement);
   }
 }, '.cards-list');
@@ -73,7 +108,8 @@ const popupAddCard = new PopupWithForm('.popup_type_add', {
   handleFormSubmit: (item) => {
     api.setNewCard(item)
       .then((res) => {
-        const cardElement = createCard(res);
+        const card = createCard(res);
+        const cardElement = card.generateCard();
         cardsArray.addItem(cardElement);
       })
       .catch((error) => {
